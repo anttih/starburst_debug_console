@@ -104,9 +104,9 @@ class Starburst_Debug_Report extends Solar_Base {
     public function display()
     {
         $list = array(
-            'Solar_Sql',
-            'Solar_Log',
-            'Solar_Debug_Timer',
+            'solar_sql',
+            'solar_log',
+            'solar_debug_timer',
         );
         
         foreach ($list as $class) {
@@ -132,7 +132,7 @@ class Starburst_Debug_Report extends Solar_Base {
         
         // uri to the js file
         $uri = Solar::factory('Solar_Uri_Public');
-        $uri->set('Anttih/scripts/debug.js');
+        $uri->set('Starburst_Debug_Report/scripts/debug.js');
         $js = $uri->get(true);
         
         // encode debug data to JSON
@@ -166,7 +166,7 @@ class Starburst_Debug_Report extends Solar_Base {
     public function varDump($var, $label)
     {
         // put var_dump() output into an array with $label as the key
-        $this->_debug['Solar_Debug_Var'][$label] = $this->_debug_var->fetch($var);
+        $this->_debug['solar_debug_var'][$label] = $this->_debug_var->fetch($var);
     }
     
     /**
@@ -179,7 +179,7 @@ class Starburst_Debug_Report extends Solar_Base {
     protected function _timer()
     {
         $this->timer->stop();
-        $this->_debug['Solar_Debug_Timer']['data'] = $this->timer->profile();
+        $this->_debug['solar_debug_timer']['data'] = $this->timer->profile();
     }
     
     /**
@@ -194,7 +194,7 @@ class Starburst_Debug_Report extends Solar_Base {
         $sql = Solar::dependency('Solar_Sql', $this->_config['sql']);
         $profiling = $sql->getProfile();
         foreach ($profiling as $query) {
-            $this->_debug['Solar_Sql']['data'][] = array(
+            $this->_debug['solar_sql']['data'][] = array(
                 $query[0],
                 $query[1],
                 $query[2],
@@ -215,7 +215,7 @@ class Starburst_Debug_Report extends Solar_Base {
             'Starburst_Log_Adapter_Var',
             $this->_config['log']
         );
-        $this->_debug['Solar_Log']['data'] = $log->getLog();
+        $this->_debug['solar_log']['data'] = $log->getLog();
     }
     
     /**
@@ -232,7 +232,7 @@ class Starburst_Debug_Report extends Solar_Base {
         // get these
         $list = array('get', 'post', 'cookie');
         foreach ($list as $super) {
-            $this->_debug['Solar_Request'][$super] = $request->{$super};
+            $this->_debug['solar_request'][$super] = $request->{$super};
         }
     }
     
