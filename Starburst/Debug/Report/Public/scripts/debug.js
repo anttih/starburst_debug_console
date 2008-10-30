@@ -28,8 +28,8 @@ var Starburst_Debug_Report = function (data) {
         
         menu = $('#' + id + ' ul');
         
-        for (key in data) {
-            if (data.hasOwnProperty(key)) {
+        for (key in widgets) {
+            if (widgets.hasOwnProperty(key)) {
                 item = '<li id="tab-' + key + '"><a href="#">' + data[key].label + '</a></li>';
                 menu.append(item);
             }
@@ -47,13 +47,11 @@ var Starburst_Debug_Report = function (data) {
     }
     
     // Returns a base object for all widgets
-    function widget_base(spec) {
-        var name = spec.name,
-            data = spec.data,
-            that = {};
+    function widget_base(debug) {
+        var that = {};
         
         that.getId = function () {
-            return 'content-' + name;
+            return 'content-' + debug.name;
         };
         
         that.hide = function () {
@@ -64,10 +62,10 @@ var Starburst_Debug_Report = function (data) {
     }
     
     // SQL Profiler
-    widgets.solar_sql = function (spec) {
+    widgets.solar_sql = function (debug) {
         
         // inherit from widget_base
-        var that = widget_base(spec);
+        var that = widget_base(debug);
         
         that.render = function (el) {
             var inner,
@@ -75,8 +73,8 @@ var Starburst_Debug_Report = function (data) {
                 key;
             
             inner = '<div id="' + that.getId() + '"><table>';
-            for (i = 0; i < data.length; i++) {
-                inner += '<tr><td><pre>' + data[i][1] + '</pre></td></tr>';
+            for (i = 0; i < debug.data.length; i++) {
+                inner += '<tr><td><pre>' + debug.data[i][1] + '</pre></td></tr>';
             }
             inner += '</table></div>';
             
@@ -87,9 +85,9 @@ var Starburst_Debug_Report = function (data) {
     };
     
     // Log viewer
-    widgets.solar_log = function (spec) {
+    widgets.solar_log = function (debug) {
         
-        var that = widget_base(spec);
+        var that = widget_base(debug);
         
         that.render = function (el) {
             var inner,
@@ -98,12 +96,12 @@ var Starburst_Debug_Report = function (data) {
             // start inner html
             inner = '<div id="' + that.getId() + '"><table>';
             
-            for (i = 0; i < data.length; i++) {
+            for (i = 0; i < debug.data.length; i++) {
                 inner += [
                     '<tr>',
-                    '<td>' + data[i]['class'] + '</td>',
-                    '<td>' + data[i].event + '</td>',
-                    '<td>' + data[i].descr + '</td>',
+                    '<td>' + debug.data[i]['class'] + '</td>',
+                    '<td>' + debug.data[i].event + '</td>',
+                    '<td>' + debug.data[i].descr + '</td>',
                     '</tr>'
                 ].join('');
             }
@@ -125,7 +123,7 @@ var Starburst_Debug_Report = function (data) {
             render_console();
             
             // render each widget
-            for (key in data) {
+            for (key in widgets) {
                 // class name to lowercase
                 key = key.toLowerCase();
                 if (widgets.hasOwnProperty(key)) {
