@@ -1,5 +1,5 @@
 /* debugger console */
-#starburst_debug_report {
+#starburst_debug_console {
     width: 50%;
     position: absolute;
     top: 10px;
@@ -8,12 +8,12 @@
     color: #000;
 }
 
-#starburst_debug_report a {
+#starburst_debug_console a {
     color: #FDDD9A;
     font-weight: bold;
 }
 
-#starburst_debug_report pre {
+#starburst_debug_console pre {
     background-color: #F7F9FA;
     color: #000;
     margin: 2px;
@@ -21,32 +21,32 @@
     overflow: visible;
 }
 
-#starburst_debug_report ul {
+#starburst_debug_console ul {
     margin: 0;
     list-style: none;
 }
 
-#starburst_debug_report ul li {
+#starburst_debug_console ul li {
     display: inline;
 }
 
-#starburst_debug_report .content {
+#starburst_debug_console .content {
     padding: 10px;
 }
 
-#starburst_debug_report .content div {
+#starburst_debug_console .content div {
     overflow: scroll;
     background-color: #fff;
 }
 
-#starburst_debug_report .content div pre {
+#starburst_debug_console .content div pre {
 }
 
-#starburst_debug_report .content div ul {
+#starburst_debug_console .content div ul {
     
 }
 
-#starburst_debug_report .content div ul li {
+#starburst_debug_console .content div ul li {
     display: list-item;
     background-color: #fff;
     margin: 0;
