@@ -5,9 +5,9 @@
  * @author Antti Holvikari <anttih@gmail.com>
  * 
  */
-var Starburst_Debug_Report = function (data) {
+var Starburst_Debug_Console = function (data) {
     
-    var id = 'starburst_debug_report',
+    var id = 'starburst_debug_console',
         widgets = {};
     
     // renders wrapper HTML

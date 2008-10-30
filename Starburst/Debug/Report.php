@@ -13,7 +13,7 @@
  * @license http://opensource.org/licenses/bsd-license.php BSD
  * 
  */
-class Starburst_Debug_Report extends Solar_Base {
+class Starburst_Debug_Console extends Solar_Base {
     
     /**
      * 
@@ -36,7 +36,7 @@ class Starburst_Debug_Report extends Solar_Base {
      * @var array
      * 
      */
-    protected $_Starburst_Debug_Report = array(
+    protected $_Starburst_Debug_Console = array(
         'sql'   => 'sql',
         'timer' => 'timer',
         'log'   => 'log',
@@ -132,19 +132,20 @@ class Starburst_Debug_Report extends Solar_Base {
         
         // uri to the js file
         $uri = Solar::factory('Solar_Uri_Public');
-        $uri->set('Starburst_Debug_Report/scripts/debug.js');
+        $uri->set('Starburst_Debug_Console/scripts/debug.js');
         $js = $uri->get(true);
         
         // encode debug data to JSON
         $json = Solar::factory('Solar_Json');
         $data = $json->encode($this->_debug);
         
-        $data_var = '_Starburst_Debug_Report_data';
+        $class    = get_class($this);
+        $data_var = '_' . $class . '_data';
         $out = "<script src=\"$js\" type=\"text/javascript\"></script>\n"
              . "<script>\n"
              . "$(document).ready(function () {\n"
              . "    var $data_var = $data;\n"
-             . "    Starburst_Debug_Report($data_var).render();\n"
+             . "    $class($data_var).render();\n"
              . "});\n"
              . "</script>";
         
