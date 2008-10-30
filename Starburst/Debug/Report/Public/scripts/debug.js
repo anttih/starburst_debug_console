@@ -7,50 +7,61 @@
  */
 var Starburst_Debug_Report = function (data) {
     
-    var widgets = {},
+    var id = 'starburst_debug_report',
+        widgets = {};
     
     // renders wrapper HTML
-        render_console = function () {
-            var item,
-                key,
-                menu,
-                html;
-            
-            html  = [
-                '<div id="Starburst_Debug_Report">',
-                '<ul class="tabs"></ul>',
-                '<div class="content"></div>',
-                '</div>'
-            ].join('');
-            
-            $(document.body).append(html);
-            
-            menu = $("#Starburst_Debug_Report ul");
-            
-            for (key in data) {
-                if (data.hasOwnProperty(key)) {
-                    item = '<li id="tab-' + key + '"><a href="#">' + data[key].label + '</a></li>';
-                    menu.append(item);
-                }
+    function render_console() {
+        var item,
+            key,
+            menu,
+            html;
+        
+        html  = [
+            '<div id="' + id + '">',
+            '<ul class="tabs"></ul>',
+            '<div class="content"></div>',
+            '</div>'
+        ].join('');
+        
+        $(document.body).append(html);
+        
+        menu = $('#' + id + ' ul');
+        
+        for (key in data) {
+            if (data.hasOwnProperty(key)) {
+                item = '<li id="tab-' + key + '"><a href="#">' + data[key].label + '</a></li>';
+                menu.append(item);
             }
-            
-            $('#Starburst_Debug_Report ul li').click(function (event) {
-                $('#Starburst_Debug_Report .content div').hide();
-                var id = this.id.replace(/tab-/, 'content-');
-                $(document.getElementById(id)).show();
-            });
-        },
+        }
+        
+        $('#' + id +  ' ul li').click(function (id) {
+            // return the event handler so that
+            // id stays inside the closure
+            return function (event) {
+                $('#' + id +  ' .content div').hide();
+                var el_id = this.id.replace(/tab-/, 'content-');
+                $(document.getElementById(el_id)).show();
+            };
+        }(id));
+    }
     
     // Returns a base object for all widgets
-        widget_base = function (spec) {
-            var id,
-                name = spec.name,
-                data = spec.data;
-            
-            id = 'content-' + name;
-            
-            return that;
+    function widget_base(spec) {
+        var name = spec.name,
+            data = spec.data,
+            that = {};
+        
+        that.getId = function () {
+            return 'content-' + name;
         };
+        
+        that.hide = function () {
+            $('#' + that.getId()).hide();
+        };
+        
+        return that;
+    }
     
     // SQL Profiler
     widgets.solar_sql = function (spec) {
@@ -63,7 +74,7 @@ var Starburst_Debug_Report = function (data) {
                 i,
                 key;
             
-            inner = '<div id="' + id + '"><table>';
+            inner = '<div id="' + that.getId() + '"><table>';
             for (i = 0; i < data.length; i++) {
                 inner += '<tr><td><pre>' + data[i][1] + '</pre></td></tr>';
             }
@@ -85,7 +96,7 @@ var Starburst_Debug_Report = function (data) {
                 i;
             
             // start inner html
-            inner = '<div id="' + id + '"><table>';
+            inner = '<div id="' + that.getId() + '"><table>';
             
             for (i = 0; i < data.length; i++) {
                 inner += [
@@ -108,24 +119,25 @@ var Starburst_Debug_Report = function (data) {
     // public methods
     return {
         "render" : function () {
-            var key, spec;
+            var key, spec, w;
             
             // render the console wrapper
             render_console();
             
             // render each widget
             for (key in data) {
+                // class name to lowercase
+                key = key.toLowerCase();
                 if (widgets.hasOwnProperty(key)) {
-                    // class name to lowercase
-                    key = key.toLowerCase();
-                    
                     // get a new widget object and render
-                    widgets.key({
+                    w = widgets[key]({
                         'name' : key,
-                        'data' : data.key.data
-                    }).render(
-                        $('#Starburst_Debug_Report .content')
-                    );
+                        'data' : data[key].data
+                    });
+                    
+                    // render widget passing in content div element
+                    w.render($('#' + id + ' .content'));
+                    w.hide();
                 }
             }
         }
