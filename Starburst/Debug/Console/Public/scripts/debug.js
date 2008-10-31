@@ -105,7 +105,7 @@ var Starburst_Debug_Console = function (data) {
                 line = debug.data[i];
                 inner += [
                     '<tr class="' + line.event + '">',
-                    '<td class="klass">' + line['class'] + '</td>',
+                    '<td class="class">' + line['class'] + '</td>',
                     '<td class="event">' + line.event + '</td>',
                     '<td class="descr">' + line.descr + '</td>',
                     '</tr>'
