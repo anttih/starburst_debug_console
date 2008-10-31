@@ -234,31 +234,4 @@ class Starburst_Debug_Console extends Solar_Base {
             $this->_debug['solar_request']['data'][$super] = $request->{$super};
         }
     }
-    
-    /**
-     * 
-     * Gets request and response headers
-     * 
-     * @return void
-     * 
-     */
-    protected function _headers()
-    {
-        $request = Solar_Registry::get('request');
-        
-        // request headers
-        $this->_debug['headers_request']  = $request->http;
-        
-        $headers = array();
-        $list = headers_list();
-        foreach ($list as $header) {
-            $pos = strpos(':', $header);
-            list($name, $value) = explode(':', $header);
-            $headers[strtolower($name)] = $value;
-        }
-        $this->_debug['headers_response'] = $headers;
-        
-        // request method. i.e GET, POST
-        $this->_debug['method'] = $request->server('REQUEST_METHOD');
-    }
 }
