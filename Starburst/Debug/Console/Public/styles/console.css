@@ -17,7 +17,7 @@
 }
 
 #starburst_debug_console pre {
-    background-color: #F7F9FA;
+    background: transparent;
     color: #000;
     margin: 2px;
     padding: 0;
