@@ -151,7 +151,8 @@ class Starburst_Debug_Console extends Solar_Base {
              . "    $(document).ready(function () {\n"
              . "        $class($data_var).render();\n"
              . "    });\n"
-             . "</script>";
+             . "</script>\n"
+             . "<!-- End $class -->\n";
         
         echo $out;
     }
