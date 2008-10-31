@@ -97,3 +97,12 @@
 #content-solar_log table td.event {
     width: 15%;
 }
+
+/* Solar_Request */
+#content-solar_request table {
+}
+
+#content-solar_request table td.key {
+    text-align: right;
+    font-weight: bold;
+}

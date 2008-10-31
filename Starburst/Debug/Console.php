@@ -106,7 +106,7 @@ class Starburst_Debug_Console extends Solar_Base {
         $list = array(
             'solar_sql',
             'solar_log',
-            'solar_debug_timer',
+            'solar_request',
         );
         
         foreach ($list as $class) {
@@ -116,8 +116,6 @@ class Starburst_Debug_Console extends Solar_Base {
             );
         }
         
-        // stop timer and get profiling
-        $this->_timer();
         
         // sql profiling
         $this->_sql();
@@ -125,10 +123,10 @@ class Starburst_Debug_Console extends Solar_Base {
         $this->_log();
         
         // superglobals
-        //$this->_superglobals();
+        $this->_superglobals();
         
-        // both request and response headers
-        //$this->_headers();
+        // stop timer and get profiling
+        //$this->_timer();
         
         // uri to the js file
         $uri = Solar::factory('Solar_Uri_Public');
@@ -231,9 +229,9 @@ class Starburst_Debug_Console extends Solar_Base {
         $request = Solar_Registry::get('request');
         
         // get these
-        $list = array('get', 'post', 'cookie');
+        $list = array('server');
         foreach ($list as $super) {
-            $this->_debug['solar_request'][$super] = $request->{$super};
+            $this->_debug['solar_request']['data'][$super] = $request->{$super};
         }
     }
     

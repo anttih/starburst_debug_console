@@ -120,6 +120,36 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
     
+    widgets.solar_request = function (debug) {
+        
+        var that = widget_base(debug);
+        
+        that.render = function (el) {
+            var inner,
+                key,
+                val;
+            
+            // start inner html
+            inner = '<div id="' + that.getId() + '"><table>';
+            
+            for (key in debug.data.server) {
+                val = debug.data.server[key];
+                inner += [
+                    '<tr>',
+                    '<td class="key">' + key + '</td>',
+                    '<td class="value">' + val + '</td>',
+                    '</tr>'
+                ].join('');
+            }
+            
+            // finish html and append to given element
+            inner += '</table></div>';
+            el.append(inner);
+        };
+        
+        return that;
+    };
+    
     // public methods
     return {
         "render" : function () {
