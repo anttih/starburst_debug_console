@@ -6,11 +6,21 @@
  * 
  */
 var Starburst_Debug_Console = function (data) {
-    
+        // id of this console
     var id = 'starburst_debug_console',
-        widgets = {};
+        
+        // default tab
+        d = 'solar_log',
+        
+        // list of widgets so that we can iterate over them
+        widgets = {},
+        
+        // registry of widgets
+        registry = {};
     
-    // renders wrapper HTML
+    /**
+     * Renders wrapper HTML
+     */
     function render_console() {
         var item,
             key,
@@ -35,8 +45,9 @@ var Starburst_Debug_Console = function (data) {
             }
         }
         
-        $('#' + id +  ' ul li').click(function (id) {
-            // return the event handler so that
+        // event listener for tab clicks
+        $('#' + id +  ' ul li').click(function (id, registry) {
+            // return the actual event handler so that
             // id stays inside the closure
             return function (event) {
                 // make tab inactive
@@ -47,13 +58,18 @@ var Starburst_Debug_Console = function (data) {
                 // make clicked tab active
                 var el_id = this.id.replace(/tab-/, 'content-');
                 $('#' + this.id).addClass('active');
+                
+                var name = this.id.replace('tab-', '');
+                
                 // show content
-                $(document.getElementById(el_id)).show();
+                registry[name].show();
             };
-        }(id));
+        }(id, registry));
     }
     
-    // Returns a base object for all widgets
+    /**
+     * Returns a base object for all widgets
+     */
     function widget_base(debug) {
         var that = {};
         
@@ -61,14 +77,24 @@ var Starburst_Debug_Console = function (data) {
             return 'content-' + debug.name;
         };
         
+        // show content
+        that.show = function () {
+            $('#' + that.getId()).show();
+        };
+        
+        // hide content
         that.hide = function () {
-            $('#' + that.getId()).hide();
+            if (debug.name !== d) {
+                $('#' + that.getId()).hide();
+            }
         };
         
         return that;
     }
     
-    // SQL Profiler
+    /**
+     * SQL Profiler
+     */
     widgets.solar_sql = function (debug) {
         
         // inherit from widget_base
@@ -95,7 +121,9 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
     
-    // Log viewer
+    /**
+     * Log viewer
+     */
     widgets.solar_log = function (debug) {
         
         var that = widget_base(debug);
@@ -126,7 +154,10 @@ var Starburst_Debug_Console = function (data) {
         
         return that;
     };
-    
+
+    /**
+     * Superglobals
+     */
     widgets.solar_request = function (debug) {
         
         var that = widget_base(debug);
@@ -159,6 +190,10 @@ var Starburst_Debug_Console = function (data) {
     
     // public methods
     return {
+        
+        /**
+         * Renders the whole widget and all it's components
+         */
         "render" : function () {
             var key, spec, w;
             
@@ -179,6 +214,9 @@ var Starburst_Debug_Console = function (data) {
                     // render widget passing in content div element
                     w.render($('#' + id + ' .content'));
                     w.hide();
+                    
+                    // add to registry
+                    registry[key] = w;
                 }
             }
         }
