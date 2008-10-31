@@ -74,7 +74,11 @@ var Starburst_Debug_Console = function (data) {
             
             inner = '<div id="' + that.getId() + '"><table>';
             for (i = 0; i < debug.data.length; i++) {
-                inner += '<tr><td><pre>' + debug.data[i][1] + '</pre></td></tr>';
+                inner += '<tr>';
+                inner += '<td class="num">' + (i + 1) + '</td>';
+                inner += '<td class="time">' + debug.data[i][0] + '</td>';
+                inner += '<td class="query"><pre>' + debug.data[i][1] + '</pre></td>';
+                inner += '</tr>';
             }
             inner += '</table></div>';
             
