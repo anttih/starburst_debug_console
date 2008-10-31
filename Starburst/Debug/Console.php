@@ -116,7 +116,6 @@ class Starburst_Debug_Console extends Solar_Base {
             );
         }
         
-        
         // sql profiling
         $this->_sql();
         
@@ -133,18 +132,25 @@ class Starburst_Debug_Console extends Solar_Base {
         $uri->set('Starburst_Debug_Console/scripts/debug.js');
         $js = $uri->get(true);
         
+        // path to stylesheet
+        $uri->set('Starburst_Debug_Console/styles/console.css');
+        $style = $uri->get(true);
+        
         // encode debug data to JSON
         $json = Solar::factory('Solar_Json');
         $data = $json->encode($this->_debug);
         
         $class    = get_class($this);
         $data_var = '_' . $class . '_data';
-        $out = "<script src=\"$js\" type=\"text/javascript\"></script>\n"
+        $out = "\n<!-- $class -->\n"
+             . "<style type=\"text/css\" media=\"screen\">"
+             . "@import url(\"$style\");</style>\n"
+             . "<script src=\"$js\" type=\"text/javascript\"></script>\n"
              . "<script>\n"
-             . "$(document).ready(function () {\n"
              . "    var $data_var = $data;\n"
-             . "    $class($data_var).render();\n"
-             . "});\n"
+             . "    $(document).ready(function () {\n"
+             . "        $class($data_var).render();\n"
+             . "    });\n"
              . "</script>";
         
         echo $out;
