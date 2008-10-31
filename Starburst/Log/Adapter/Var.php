@@ -1,11 +1,11 @@
 <?php
 /**
  * 
- * Log adapter to echo messages directly.
+ * Log adapter to store log messages in memory.
  * 
- * @category Phit
+ * @category Starburst
  * 
- * @package Phit_Log
+ * @package Starburst_Log
  * 
  */
 class Starburst_Log_Adapter_Var extends Solar_Log_Adapter
@@ -21,22 +21,11 @@ class Starburst_Log_Adapter_Var extends Solar_Log_Adapter
      *   should recognize; a comma-separated string of events, or
      *   a sequential array.  Default is all events ('*').
      * 
-     * `format`
-     * : (string) The line format for each saved event.
-     *   Use '%t' for the timestamp, '%c' for the class name, '%e' for
-     *   the event type, '%m' for the event description, and '%%' for a
-     *   literal percent.  Default is '%t %c %e %m'.
-     * 
-     * `output`
-     * : (string) Output mode.  Set to 'html' for HTML; 
-     *   or 'text' for plain text.  Default autodetects by SAPI version.
-     * 
      * @var array
      * 
      */
     protected $_Starburst_Log_Adapter_Var = array(
         'events' => '*',
-        'format' => '%t %c %e %m',
     );
     
     protected $_store = array();
