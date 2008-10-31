@@ -142,7 +142,7 @@ class Starburst_Debug_Console extends Solar_Base {
         
         $class    = get_class($this);
         $data_var = '_' . $class . '_data';
-        $out = "\n<!-- $class -->\n"
+        $html = "\n<!-- $class -->\n"
              . "<style type=\"text/css\" media=\"screen\">"
              . "@import url(\"$style\");</style>\n"
              . "<script src=\"$js\" type=\"text/javascript\"></script>\n"
@@ -154,7 +154,7 @@ class Starburst_Debug_Console extends Solar_Base {
              . "</script>\n"
              . "<!-- End $class -->\n";
         
-        echo $out;
+        echo $html;
     }
     
     /**
