@@ -1,11 +1,14 @@
 /* debugger console */
 #starburst_debug_console {
-    width: 50%;
+    width: 700px;
     position: absolute;
     top: 10px;
     left: 10px;
     background-color: #640203;
     color: #000;
+    background-image: url(http://solarphp.com/favicon.ico);
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
 }
 
 #starburst_debug_console a {
@@ -19,15 +22,28 @@
     margin: 2px;
     padding: 0;
     overflow: visible;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 #starburst_debug_console ul {
     margin: 0;
+    margin-left: 25px;
     list-style: none;
 }
 
 #starburst_debug_console ul li {
     display: inline;
+    margin: 0 5px 0 5px;
+    line-height: 2.2em;
+}
+
+#starburst_debug_console ul li a {
+    padding: 2px 4px;
+    background-color: #4E0202;
 }
 
 #starburst_debug_console .content {
@@ -35,8 +51,9 @@
 }
 
 #starburst_debug_console .content div {
-    overflow: scroll;
+    overflow: auto;
     background-color: #fff;
+    height: 500px;
 }
 
 #starburst_debug_console .content div pre {
