@@ -1,5 +1,5 @@
-`Starburst_Debug_Console` - Debugging console for Solar
-=====================================================
+`Starburst_Debug_Console` - Debugging and profiling console for Solar
+=====================================================================
 
 [Solar][] is a framework for PHP5. `Starburst_Debug_Console` is a debugging and
 profiling console for Solar applications. Once installed, you will see a console
