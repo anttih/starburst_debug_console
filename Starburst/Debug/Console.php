@@ -183,7 +183,7 @@ class Starburst_Debug_Console extends Solar_Base {
     
     /**
      * 
-     * Get profiling from Solar_Sql
+     * Gets profiling from Solar_Sql
      * 
      * @return void
      * 
@@ -203,7 +203,7 @@ class Starburst_Debug_Console extends Solar_Base {
     
     /**
      * 
-     * Undocumented function
+     * Gets log messages for this request
      * 
      * @return void
      * 
