@@ -56,6 +56,10 @@
     height: 500px;
 }
 
+#starburst_debug_console .content div table {
+    width: 100%;
+}
+
 #starburst_debug_console .content div pre {
 }
 
@@ -70,3 +74,26 @@
     padding: 0;
 }
 
+/* Solar_Log viewer */
+#content-solar_log table {
+    border-collapse: collapse;
+}
+
+#content-solar_log table tr.debug {
+    background-color: #e8f0d7;
+}
+
+#content-solar_log table tr.notice {
+}
+
+#content-solar_log table tr.warning {
+    background-color: #faecec;
+}
+
+#content-solar_log table td.klass {
+    width: 20%;
+}
+
+#content-solar_log table td.event {
+    width: 15%;
+}

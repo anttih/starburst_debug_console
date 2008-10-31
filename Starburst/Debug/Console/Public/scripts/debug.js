@@ -95,17 +95,19 @@ var Starburst_Debug_Console = function (data) {
         
         that.render = function (el) {
             var inner,
-                i;
+                i,
+                line;
             
             // start inner html
             inner = '<div id="' + that.getId() + '"><table>';
             
             for (i = 0; i < debug.data.length; i++) {
+                line = debug.data[i];
                 inner += [
-                    '<tr>',
-                    '<td>' + debug.data[i]['class'] + '</td>',
-                    '<td>' + debug.data[i].event + '</td>',
-                    '<td>' + debug.data[i].descr + '</td>',
+                    '<tr class="' + line.event + '">',
+                    '<td class="klass">' + line['class'] + '</td>',
+                    '<td class="event">' + line.event + '</td>',
+                    '<td class="descr">' + line.descr + '</td>',
                     '</tr>'
                 ].join('');
             }
