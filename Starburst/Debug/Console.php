@@ -4,9 +4,11 @@
  * Debugging console for gathering debugging information
  * from several sources and displaying them
  * 
- * @category Lux
+ * @category Starburst
  * 
- * @package Lux_Debug
+ * @package Starburst_Debug
+ * 
+ * @subpackage Starburst_Debug_Console
  * 
  * @author Antti Holvikari <anttih@gmail.com>
  * 
