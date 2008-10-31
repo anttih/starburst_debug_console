@@ -43,6 +43,9 @@
 
 #starburst_debug_console ul li a {
     padding: 2px 4px;
+}
+
+#starburst_debug_console ul li.active a {
     background-color: #4E0202;
 }
 

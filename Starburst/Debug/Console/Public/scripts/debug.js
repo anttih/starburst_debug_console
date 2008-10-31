@@ -39,8 +39,15 @@ var Starburst_Debug_Console = function (data) {
             // return the event handler so that
             // id stays inside the closure
             return function (event) {
+                // make tab inactive
+                $('#' + id + ' .tabs li').removeClass('active');
+                // hide all content divs
                 $('#' + id +  ' .content div').hide();
+                
+                // make clicked tab active
                 var el_id = this.id.replace(/tab-/, 'content-');
+                $('#' + this.id).addClass('active');
+                // show content
                 $(document.getElementById(el_id)).show();
             };
         }(id));
