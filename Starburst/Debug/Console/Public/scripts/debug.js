@@ -1,9 +1,7 @@
 /**
- * 
  * Debug console for Solar
  * 
  * @author Antti Holvikari <anttih@gmail.com>
- * 
  */
 var Starburst_Debug_Console = function (data) {
         // id of this console
@@ -55,10 +53,6 @@ var Starburst_Debug_Console = function (data) {
                 // hide all content divs
                 $('#' + id +  ' .content div').hide();
                 
-                // make clicked tab active
-                var el_id = this.id.replace(/tab-/, 'content-');
-                $('#' + this.id).addClass('active');
-                
                 var name = this.id.replace('tab-', '');
                 
                 // show content
@@ -79,6 +73,8 @@ var Starburst_Debug_Console = function (data) {
         
         // show content
         that.show = function () {
+            // show tab as active
+            $('#tab-' + debug.name).addClass('active');
             $('#' + that.getId()).show();
         };
         
@@ -194,7 +190,7 @@ var Starburst_Debug_Console = function (data) {
         /**
          * Renders the whole widget and all it's components
          */
-        "render" : function () {
+        render : function () {
             var key, spec, w;
             
             // render the console wrapper
