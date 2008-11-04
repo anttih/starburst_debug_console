@@ -90,6 +90,7 @@
 }
 
 #content-solar_log table tr.debug {
+    background-color: #e8f0d7;
 }
 
 #content-solar_log table tr.notice {
