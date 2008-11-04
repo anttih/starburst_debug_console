@@ -200,7 +200,7 @@ var Starburst_Debug_Console = function (data) {
             for (key in data) {
                 // class name to lowercase
                 key = key.toLowerCase();
-                if (data.hasOwnProperty(key)) {
+                if (data.hasOwnProperty(key) && data[key].data) {
                     // get a new widget object and render
                     w = widgets[key]({
                         'name' : key,
