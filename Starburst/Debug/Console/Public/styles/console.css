@@ -6,7 +6,7 @@
     left: 10px;
     background-color: #640203;
     color: #000;
-    background-image: url(http://solarphp.com/favicon.ico);
+    background-image: url(../../Starburst_Debug_Console/images/solar.ico);
     background-repeat: no-repeat;
     background-position: 4px 4px;
 }
@@ -68,13 +68,6 @@
 #starburst_debug_console .content div table td {
     padding: 4px;
     border: 1px solid #e1e1e1;
-}
-
-#starburst_debug_console .content div pre {
-}
-
-#starburst_debug_console .content div ul {
-    
 }
 
 #starburst_debug_console .content div ul li {
