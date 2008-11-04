@@ -59,8 +59,15 @@
     height: 500px;
 }
 
+/* content tables */
 #starburst_debug_console .content div table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+#starburst_debug_console .content div table td {
+    padding: 4px;
+    border: 1px solid #e1e1e1;
 }
 
 #starburst_debug_console .content div pre {
@@ -83,7 +90,6 @@
 }
 
 #content-solar_log table tr.debug {
-    background-color: #e8f0d7;
 }
 
 #content-solar_log table tr.notice {
