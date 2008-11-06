@@ -36,7 +36,6 @@ If your project is a "Solar system", you can add it to include_path with:
 
 Here's an example configuration:
 
-{{code:php
     // turn on SQL query profiling
     $config['Solar_Sql']['profiling'] = true;
     
@@ -49,7 +48,6 @@ Here's an example configuration:
         'adapter'   => 'Starburst_Log_Adapter_Var',
         'events'    => array('notice', 'debug', 'warning'),
     ));
-}}
 
 You might want to put the configuration inside a conditional so that the console
 is shown only in development environment.
