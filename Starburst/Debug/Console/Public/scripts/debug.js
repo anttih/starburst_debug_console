@@ -1,8 +1,8 @@
-/**
- * Debug console for Solar
- * 
- * @author Antti Holvikari <anttih@gmail.com>
- */
+// 
+// Debug console for Solar
+// 
+// @author Antti Holvikari <anttih@gmail.com>
+// 
 var Starburst_Debug_Console = function (data) {
         // id of this console
     var id = 'starburst_debug_console',
@@ -15,10 +15,40 @@ var Starburst_Debug_Console = function (data) {
         
         // registry of widgets
         registry = {};
-    
-    /**
-     * Renders wrapper HTML
-     */
+
+// 
+// Renders the whole widget and all it's components
+// 
+    function render() {
+        var key, spec, w;
+        
+        // render the console wrapper
+        render_console();
+        
+        // render each widget
+        for (key in data) {
+            // class name to lowercase
+            key = key.toLowerCase();
+            if (data.hasOwnProperty(key) && data[key].data) {
+                // get a new widget object and render
+                w = widgets[key]({
+                    'name' : key,
+                    'data' : data[key].data
+                });
+                
+                // render widget passing in content div element
+                w.render($('#' + id + ' .content'));
+                w.hide();
+                
+                // add to registry
+                registry[key] = w;
+            }
+        }
+    }
+
+// 
+// Renders wrapper HTML
+// 
     function render_console() {
         var item,
             key,
@@ -61,9 +91,9 @@ var Starburst_Debug_Console = function (data) {
         }(id, registry));
     }
     
-    /**
-     * Returns a base object for all widgets
-     */
+// 
+// Returns a base object for all widgets
+// 
     function widget_base(debug) {
         var that = {};
         
@@ -87,11 +117,16 @@ var Starburst_Debug_Console = function (data) {
         
         return that;
     }
-    
-    /**
-     * SQL Profiler
-     */
-    widgets.solar_sql = function (debug) {
+
+// -----------------------------------------------------------------------------
+// 
+// Widgets
+// 
+
+// 
+// SQL Profiler
+// 
+    function solar_sql(debug) {
         
         // inherit from widget_base
         var that = widget_base(debug);
@@ -117,10 +152,10 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
     
-    /**
-     * Log viewer
-     */
-    widgets.solar_log = function (debug) {
+// 
+// Log viewer
+// 
+     function solar_log(debug) {
         
         var that = widget_base(debug);
         
@@ -151,10 +186,10 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
 
-    /**
-     * Superglobals
-     */
-    widgets.solar_request = function (debug) {
+// 
+// Superglobals
+// 
+    function solar_request(debug) {
         
         var that = widget_base(debug);
         
@@ -184,38 +219,19 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
     
-    // public methods
+
+// exposed widgets
+    widgets = {
+        "solar_sql"     : solar_sql,
+        "solar_log"     : solar_log,
+        "solar_request" : solar_request
+    };
+    
+// 
+// return public methods
+// 
     return {
-        
-        /**
-         * Renders the whole widget and all it's components
-         */
-        render : function () {
-            var key, spec, w;
-            
-            // render the console wrapper
-            render_console();
-            
-            // render each widget
-            for (key in data) {
-                // class name to lowercase
-                key = key.toLowerCase();
-                if (data.hasOwnProperty(key) && data[key].data) {
-                    // get a new widget object and render
-                    w = widgets[key]({
-                        'name' : key,
-                        'data' : data[key].data
-                    });
-                    
-                    // render widget passing in content div element
-                    w.render($('#' + id + ' .content'));
-                    w.hide();
-                    
-                    // add to registry
-                    registry[key] = w;
-                }
-            }
-        }
+        "render" : render
     };
 };
 
