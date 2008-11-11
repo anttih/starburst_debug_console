@@ -4,21 +4,23 @@
 // @author Antti Holvikari <anttih@gmail.com>
 // 
 var Starburst_Debug_Console = function (data) {
-        // id of this console
+
+    // id of this console
     var id = 'starburst_debug_console',
         
-        // default tab
+    // default tab
         d = 'solar_log',
         
-        // list of widgets so that we can iterate over them
+    // list of widgets so that we can iterate over them
         widgets = {},
         
-        // registry of widgets
+    // registry of widgets
         registry = {};
 
-// 
-// Renders the whole widget and all it's components
-// 
+    // 
+    // Renders the whole widget and all it's components.
+    // This is a public method returned by this function.
+    // 
     function render() {
         var key, spec, w;
         
@@ -46,9 +48,9 @@ var Starburst_Debug_Console = function (data) {
         }
     }
 
-// 
-// Renders wrapper HTML
-// 
+    // 
+    // Renders wrapper HTML
+    // 
     function render_console() {
         var item,
             key,
@@ -91,9 +93,9 @@ var Starburst_Debug_Console = function (data) {
         }(id, registry));
     }
     
-// 
-// Returns a base object for all widgets
-// 
+    // 
+    // Returns a base object for all widgets
+    // 
     function widget_base(debug) {
         var that = {};
         
@@ -123,9 +125,9 @@ var Starburst_Debug_Console = function (data) {
 // Widgets
 // 
 
-// 
-// SQL Profiler
-// 
+    // 
+    // SQL Profiler
+    // 
     function solar_sql(debug) {
         
         // inherit from widget_base
@@ -152,9 +154,9 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
     
-// 
-// Log viewer
-// 
+    // 
+    // Log viewer
+    // 
      function solar_log(debug) {
         
         var that = widget_base(debug);
@@ -186,9 +188,9 @@ var Starburst_Debug_Console = function (data) {
         return that;
     };
 
-// 
-// Superglobals
-// 
+    // 
+    // Superglobals
+    // 
     function solar_request(debug) {
         
         var that = widget_base(debug);
@@ -220,16 +222,16 @@ var Starburst_Debug_Console = function (data) {
     };
     
 
-// exposed widgets
+    // exposed widgets
     widgets = {
         "solar_sql"     : solar_sql,
         "solar_log"     : solar_log,
         "solar_request" : solar_request
     };
     
-// 
-// return public methods
-// 
+    // 
+    // Public methods
+    // 
     return {
         "render" : render
     };
