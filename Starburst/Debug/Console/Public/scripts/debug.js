@@ -7,8 +7,8 @@ var Starburst_Debug_Console = function (data) {
         // id of this console
     var id = 'starburst_debug_console',
         
-        // default tab
-        d = 'solar_log',
+        // tab that will be left open
+        default_tab = 'solar_sql',
         
         // list of widgets so that we can iterate over them
         widgets = {},
@@ -25,10 +25,11 @@ var Starburst_Debug_Console = function (data) {
         // render the console wrapper
         render_console();
         
-        // render each widget
-        for (key in data) {
+        // look for keys in the debug payload
+        // and render each as a widget
+        for (klass in data) {
             // class name to lowercase
-            key = key.toLowerCase();
+            key = klass.toLowerCase();
             if (data.hasOwnProperty(key) && data[key].data) {
                 // get a new widget object and render
                 w = widgets[key]({
@@ -38,7 +39,11 @@ var Starburst_Debug_Console = function (data) {
                 
                 // render widget passing in content div element
                 w.render($('#' + id + ' .content'));
-                w.hide();
+                
+                // hide if not default
+                if (key !== default_tab) {
+                    w.hide();
+                }
                 
                 // add to registry
                 registry[key] = w;
@@ -110,9 +115,7 @@ var Starburst_Debug_Console = function (data) {
         
         // hide content
         that.hide = function () {
-            if (debug.name !== d) {
-                $('#' + that.getId()).hide();
-            }
+            $('#' + that.getId()).hide();
         };
         
         return that;
