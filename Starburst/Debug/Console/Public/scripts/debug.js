@@ -8,7 +8,7 @@ var Starburst_Debug_Console = function (data) {
     // id of this console
     var id = 'starburst_debug_console',
         
-        // tab that will be left open
+    // tab that will be left open
         default_tab = 'solar_sql',
         
     // list of widgets so that we can iterate over them
