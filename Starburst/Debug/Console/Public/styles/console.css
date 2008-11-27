@@ -68,6 +68,7 @@
 #starburst_debug_console .content div table td {
     padding: 4px;
     border: 1px solid #e1e1e1;
+    background-color: #fff;
 }
 
 #starburst_debug_console .content div ul li {
