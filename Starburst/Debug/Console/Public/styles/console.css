@@ -1,4 +1,12 @@
 /* debugger console */
+#starburst_debug_console-open {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #640203;
+    padding: 10px;
+}
+
 #starburst_debug_console {
     width: 700px;
     position: absolute;
@@ -9,9 +17,18 @@
     background-image: url(../../Starburst_Debug_Console/images/solar.ico);
     background-repeat: no-repeat;
     background-position: 4px 4px;
+    display: none;
 }
 
-#starburst_debug_console a {
+#starburst_debug_console-close {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    line-height: 2.2em;
+}
+
+#starburst_debug_console a,
+#starburst_debug_console-open a {
     color: #FDDD9A;
     font-weight: bold;
 }

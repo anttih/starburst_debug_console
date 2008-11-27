@@ -61,14 +61,36 @@ var Starburst_Debug_Console = function (data) {
             html;
         
         html  = [
+            '<div id="starburst_debug_console-open"><a href="#">Open console</a></div>',
             '<div id="' + id + '">',
             '<ul class="tabs"></ul>',
+            '<a id="starburst_debug_console-close" href="#">Close</a>',
             '<div class="content"></div>',
             '</div>'
         ].join('');
         
         $(document.body).append(html);
         
+        open = $("#starburst_debug_console-open");
+        console = $(document.getElementById(id));
+        
+        // show console
+        $("#starburst_debug_console-open a").click(function (open, console) {
+            return function () {
+                open.toggle();
+                console.toggle();
+            };
+        }(open, console));
+        
+        // close console
+        $("#starburst_debug_console-close").click(function (open, console) {
+            return function () {
+                console.fadeOut('slow');
+                open.fadeIn('slow');
+            };
+        }(open, console));
+        
+        // get the list node
         menu = $('#' + id + ' ul');
         
         for (key in widgets) {
