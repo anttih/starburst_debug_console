@@ -43,13 +43,16 @@ put the files under `$system/source/starburst-debug-console`.
         
         $config['Solar']['registry_set']['debug-report'] = 'Starburst_Debug_Console';
         
-        // this will display the console
-        $config['Solar']['stop'][] = array('debug-report', 'display');
-        
         $config['Solar']['registry_set']['log'] = array('Solar_Log', array(
             'adapter'   => 'Starburst_Log_Adapter_Var',
             'events'    => array('notice', 'debug', 'warning'),
         ));
+        
+        // display only when in browser
+        if (PHP_SAPI != 'cli') {
+            // this will display the console
+            $config['Solar']['stop'][] = array('debug-report', 'display');
+        }
         
     You might want to put the configuration inside a conditional so that the console
     is shown only in development environment.
