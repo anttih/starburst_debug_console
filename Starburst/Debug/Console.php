@@ -98,6 +98,20 @@ class Starburst_Debug_Console extends Solar_Base {
      */
     public function display()
     {
+        // don't display if we're not sending
+        // HTML. this takes care of formats
+        // like XHR when you can't display the console.
+        $headers = headers_list();
+        foreach ($headers as $header) {
+            $header = strtolower($header);
+            if (substr($header, 0, 12) == 'content-type') {
+                $content_type = substr($header, 14, 9);
+                if ($content_type != 'text/html') {
+                    return;
+                }
+            }
+        }
+        
         $list = array(
             'solar_sql',
             'solar_log',
