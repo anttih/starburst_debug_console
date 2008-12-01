@@ -100,14 +100,14 @@
     border-collapse: collapse;
 }
 
-#content-solar_log table tr.debug {
+#content-solar_log table tr.debug td {
     background-color: #e8f0d7;
 }
 
-#content-solar_log table tr.notice {
+#content-solar_log table tr.notice td {
 }
 
-#content-solar_log table tr.warning {
+#content-solar_log table tr.warning td {
     background-color: #faecec;
 }
 
