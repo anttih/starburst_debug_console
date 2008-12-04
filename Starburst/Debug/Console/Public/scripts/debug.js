@@ -74,23 +74,23 @@ var Starburst_Debug_Console = function (data) {
         $(document.body).append(html);
         
         open = $("#starburst_debug_console-open");
-        console = $(document.getElementById(id));
+        close = $(document.getElementById(id));
         
         // show console
-        $("#starburst_debug_console-open a").click(function (open, console) {
+        $("#starburst_debug_console-open a").click(function (open, close) {
             return function () {
                 open.toggle();
-                console.toggle();
+                close.toggle();
             };
-        }(open, console));
+        }(open, close));
         
         // close console
-        $("#starburst_debug_console-close").click(function (open, console) {
+        $("#starburst_debug_console-close").click(function (open, close) {
             return function () {
-                console.fadeOut('slow');
+                close.fadeOut('slow');
                 open.fadeIn('slow');
             };
-        }(open, console));
+        }(open, close));
         
         // get the list node
         menu = $('#' + id + ' ul');
