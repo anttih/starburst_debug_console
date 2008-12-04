@@ -135,6 +135,10 @@ class Starburst_Debug_Console extends Solar_Base {
         
         // uri to the js file
         $uri = Solar::factory('Solar_Uri_Public');
+        
+        $uri->set('Starburst_Debug_Console/scripts/jquery.min.js');
+        $jquery = $uri->get(true);
+        
         $uri->set('Starburst_Debug_Console/scripts/debug.js');
         $js = $uri->get(true);
         
@@ -151,6 +155,7 @@ class Starburst_Debug_Console extends Solar_Base {
         $html = "\n<!-- $class -->\n"
              . "<style type=\"text/css\" media=\"screen\">"
              . "@import url(\"$style\");</style>\n"
+             . "<script src=\"$jquery\" type=\"text/javascript\"></script>\n"
              . "<script src=\"$js\" type=\"text/javascript\"></script>\n"
              . "<script>\n"
              . "    var $data_var = $data;\n"
