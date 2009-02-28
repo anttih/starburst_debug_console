@@ -211,11 +211,7 @@ class Starburst_Debug_Console extends Solar_Base {
         $sql = Solar::dependency('Solar_Sql', $this->_config['sql']);
         $profiling = $sql->getProfile();
         foreach ($profiling as $query) {
-            $this->_debug['solar_sql']['data'][] = array(
-                $query[0],
-                $query[1],
-                $query[2],
-            );
+            $this->_debug['solar_sql']['data'][] = $query;
         }
     }
     
