@@ -1,3 +1,7 @@
+.domtpl {
+    display: none;
+}
+
 /* debugger console */
 #starburst_debug_console-open {
     position: absolute;
@@ -8,7 +12,7 @@
 }
 
 #starburst_debug_console {
-    width: 700px;
+    width: 60%;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -20,7 +24,7 @@
     display: none;
 }
 
-#starburst_debug_console-close {
+#starburst_debug_console .close {
     position: absolute;
     top: 0;
     right: 5px;
@@ -70,25 +74,30 @@
     padding: 10px;
 }
 
-#starburst_debug_console .content div {
+#starburst_debug_console .content .sub {
     overflow: auto;
     background-color: #fff;
     height: 500px;
+    display: none;
+}
+
+#starburst_debug_console .content .active {
+    display: auto;
 }
 
 /* content tables */
-#starburst_debug_console .content div table {
+#starburst_debug_console .content .sub table {
     width: 100%;
     border-collapse: collapse;
 }
 
-#starburst_debug_console .content div table td {
+#starburst_debug_console .content .sub table td {
     padding: 4px;
     border: 1px solid #e1e1e1;
     background-color: #fff;
 }
 
-#starburst_debug_console .content div ul li {
+#starburst_debug_console .content .sub ul li {
     display: list-item;
     background-color: #fff;
     margin: 0;
