@@ -93,17 +93,17 @@ var Starburst_Debug_Console = function (data) {
         }(open, close));
         
         // get the list node
-        menu = $('#' + id + ' ul');
+        menu = $('#' + id + ' .tabs');
         
         for (key in widgets) {
             if (widgets.hasOwnProperty(key)) {
-                item = '<li id="tab-' + key + '"><a href="#">' + data[key].label + '</a></li>';
+                item = '<li><a href="#' + key + '">' + data[key].label + '</a></li>';
                 menu.append(item);
             }
         }
         
         // event listener for tab clicks
-        $('#' + id +  ' ul li').click(function (id, registry) {
+        $('#' + id +  ' .tabs li').click(function (id, registry) {
             // return the actual event handler so that
             // id stays inside the closure
             return function (event) {
@@ -112,10 +112,13 @@ var Starburst_Debug_Console = function (data) {
                 // hide all content divs
                 $('#' + id +  ' .content div').hide();
                 
-                var name = this.id.replace('tab-', '');
+                var name = this.children[0].hash.replace('#', '');
                 
                 // show content
                 registry[name].show();
+                
+                // don't actually go there
+                return false;
             };
         }(id, registry));
     }
@@ -127,13 +130,14 @@ var Starburst_Debug_Console = function (data) {
         var that = {};
         
         that.getId = function () {
-            return 'content-' + debug.name;
+            return debug.name;
         };
         
         // show content
         that.show = function () {
             // show tab as active
             $('#tab-' + debug.name).addClass('active');
+            // show pane
             $('#' + that.getId()).show();
         };
         

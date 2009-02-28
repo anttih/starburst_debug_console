@@ -46,23 +46,23 @@
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
-#starburst_debug_console ul {
+#starburst_debug_console .tabs {
     margin: 0;
     margin-left: 25px;
     list-style: none;
 }
 
-#starburst_debug_console ul li {
+#starburst_debug_console .tabs li {
     display: inline;
     margin: 0 5px 0 5px;
     line-height: 2.2em;
 }
 
-#starburst_debug_console ul li a {
+#starburst_debug_console .tabs li a {
     padding: 2px 4px;
 }
 
-#starburst_debug_console ul li.active a {
+#starburst_debug_console .tabs li.active a {
     background-color: #4E0202;
 }
 
