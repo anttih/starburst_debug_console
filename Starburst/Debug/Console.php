@@ -45,17 +45,6 @@ class Starburst_Debug_Console extends Solar_Base {
     
     /**
      * 
-     * Debugging info
-     * 
-     * These keys get assigned to the view
-     * 
-     * @var array
-     * 
-     */
-    protected $_debug = array();
-    
-    /**
-     * 
      * Timer object
      * 
      * @var Solar_Debug_Timer
@@ -74,6 +63,44 @@ class Starburst_Debug_Console extends Solar_Base {
     
     /**
      * 
+     * Debugging info
+     * 
+     * These keys get assigned to the view
+     * 
+     * @var array
+     * 
+     */
+    public $debug = array();
+    
+    /**
+     * 
+     * undocumented class variable
+     * 
+     * @var string
+     * 
+     */
+    public $debug_json;
+    
+    /**
+     * 
+     * undocumented class variable
+     * 
+     * @var string
+     * 
+     */
+    public $scripts = array();
+    
+    /**
+     * 
+     * undocumented class variable
+     * 
+     * @var string
+     * 
+     */
+    public $styles = array();
+    
+    /**
+     * 
      * Constructor
      * 
      * @return void
@@ -83,7 +110,7 @@ class Starburst_Debug_Console extends Solar_Base {
     {
         parent::__construct($config);
         
-        $this->_debug_var = Solar::factory('Solar_Debug_Var');
+        $this->debug_var = Solar::factory('Solar_Debug_Var');
     }
     
     /**
@@ -112,19 +139,6 @@ class Starburst_Debug_Console extends Solar_Base {
             }
         }
         
-        $list = array(
-            'solar_sql',
-            'solar_log',
-            'solar_request',
-        );
-        
-        foreach ($list as $class) {
-            $this->_debug[$class] = array(
-                'label' => $this->locale('TEXT_' . strtoupper($class)),
-                'data'  => null,
-            );
-        }
-        
         // sql profiling
         $this->_sql();
         
@@ -137,35 +151,34 @@ class Starburst_Debug_Console extends Solar_Base {
         $uri = Solar::factory('Solar_Uri_Public');
         
         $uri->set('Starburst_Debug_Console/scripts/jquery.min.js');
-        $jquery = $uri->get(true);
+        $this->scripts[] = $uri->get(true);
+        
+        $uri->set('Starburst_Debug_Console/scripts/jquery.domtpl.js');
+        $this->scripts[] = $uri->get(true);
         
         $uri->set('Starburst_Debug_Console/scripts/debug.js');
-        $js = $uri->get(true);
+        $this->scripts[] = $uri->get(true);
         
         // path to stylesheet
         $uri->set('Starburst_Debug_Console/styles/console.css');
-        $style = $uri->get(true);
+        $this->styles[] = $uri->get(true);
+        
+        
+        $view = Solar::factory('Solar_View');
+        $view->setTemplatePath(Solar_Class::dir(get_class($this), '/View'));
+        $view->setHelperClass(array(
+            'Solar_View_Helper',
+        ));
         
         // encode debug data to JSON
         $json = Solar::factory('Solar_Json');
-        $data = $json->encode($this->_debug);
+        $this->debug_json = $json->encode($this->debug);
         
-        $class    = get_class($this);
-        $data_var = '_' . $class . '_data';
-        $html = "\n<!-- $class -->\n"
-             . "<style type=\"text/css\" media=\"screen\">"
-             . "@import url(\"$style\");</style>\n"
-             . "<script src=\"$jquery\" type=\"text/javascript\"></script>\n"
-             . "<script src=\"$js\" type=\"text/javascript\"></script>\n"
-             . "<script>\n"
-             . "    var $data_var = $data;\n"
-             . "    $(document).ready(function () {\n"
-             . "        $class($data_var).render();\n"
-             . "    });\n"
-             . "</script>\n"
-             . "<!-- End $class -->\n";
+        // assign all data for the view
+        $view->assign($this);
         
-        echo $html;
+        // render view
+        echo $view->fetch('read');
     }
     
     /**
@@ -183,7 +196,7 @@ class Starburst_Debug_Console extends Solar_Base {
     public function varDump($var, $label)
     {
         // put var_dump() output into an array with $label as the key
-        $this->_debug['solar_debug_var'][$label] = $this->_debug_var->fetch($var);
+        $this->debug['solar_debug_var'][$label] = $this->debug_var->fetch($var);
     }
     
     /**
@@ -196,7 +209,7 @@ class Starburst_Debug_Console extends Solar_Base {
     protected function _timer()
     {
         $this->timer->stop();
-        $this->_debug['solar_debug_timer']['data'] = $this->timer->profile();
+        $this->debug['solar_debug_timer']['data'] = $this->timer->profile();
     }
     
     /**
@@ -211,7 +224,7 @@ class Starburst_Debug_Console extends Solar_Base {
         $sql = Solar::dependency('Solar_Sql', $this->_config['sql']);
         $profiling = $sql->getProfile();
         foreach ($profiling as $query) {
-            $this->_debug['solar_sql']['data'][] = $query;
+            $this->debug['solar_sql'][] = $query;
         }
     }
     
@@ -228,7 +241,7 @@ class Starburst_Debug_Console extends Solar_Base {
             'Starburst_Log_Adapter_Var',
             $this->_config['log']
         );
-        $this->_debug['solar_log']['data'] = $log->getLog();
+        $this->debug['solar_log'] = $log->getLog();
     }
     
     /**
@@ -245,7 +258,7 @@ class Starburst_Debug_Console extends Solar_Base {
         // get these
         $list = array('server');
         foreach ($list as $super) {
-            $this->_debug['solar_request']['data'][$super] = $request->{$super};
+            $this->debug['solar_request'][$super] = $request->{$super};
         }
     }
 }
