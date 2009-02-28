@@ -10,7 +10,7 @@ Features:
 * No coding needed. You only need to set a few config values.
 * SQL profiler (through `Solar_Sql`)
 * Log viewer (through integrated custom log writer for `Solar_Log`)
-* PHP environment view ($_SERVER variables)
+* PHP environment view (`$_SERVER` variables)
 
 [Solar]: http://solarphp.com
 
@@ -22,7 +22,7 @@ Features:
 put the files under `$system/source/starburst-debug-console`.
 
 
-2. Add Starburst directory to your include_path.
+2. Add Starburst directory to your `include_path`.
 
     If your project is a "Solar system", you can add it to include_path with:
     

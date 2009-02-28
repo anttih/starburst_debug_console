@@ -40,7 +40,6 @@ class Starburst_Debug_Console extends Solar_Base {
      */
     protected $_Starburst_Debug_Console = array(
         'sql'   => 'sql',
-        'timer' => 'timer',
         'log'   => 'log',
     );
     
@@ -84,12 +83,6 @@ class Starburst_Debug_Console extends Solar_Base {
     {
         parent::__construct($config);
         
-        // start timer before anything
-        $this->timer = Solar::dependency(
-            'Solar_Debug_Timer',
-            $this->_config['timer']
-        );
-        
         $this->_debug_var = Solar::factory('Solar_Debug_Var');
     }
     
@@ -105,6 +98,20 @@ class Starburst_Debug_Console extends Solar_Base {
      */
     public function display()
     {
+        // don't display if we're not sending
+        // HTML. this takes care of formats
+        // like XHR when you can't display the console.
+        $headers = headers_list();
+        foreach ($headers as $header) {
+            $header = strtolower($header);
+            if (substr($header, 0, 12) == 'content-type') {
+                $content_type = substr($header, 14, 9);
+                if ($content_type != 'text/html') {
+                    return;
+                }
+            }
+        }
+        
         $list = array(
             'solar_sql',
             'solar_log',
@@ -125,9 +132,6 @@ class Starburst_Debug_Console extends Solar_Base {
         
         // superglobals
         $this->_superglobals();
-        
-        // stop timer and get profiling
-        //$this->_timer();
         
         // uri to the js file
         $uri = Solar::factory('Solar_Uri_Public');
