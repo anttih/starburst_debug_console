@@ -55,4 +55,4 @@
         Starburst_Debug_Console(data);
     });
 </script>
-<!-- End Starburst_Debug_Console -->;
+<!-- End Starburst_Debug_Console -->
